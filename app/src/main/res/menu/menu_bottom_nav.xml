@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_academy"
+        android:icon="@drawable/ic_home_white"
+        android:title="@string/academy" />
+
+    <item
+        android:id="@+id/menu_help"
+        android:icon="@drawable/ic_help_white"
+        android:title="@string/help" />
+
+    <item
+        android:id="@+id/menu_profile"
+        android:icon="@drawable/ic_person_white"
+        android:title="@string/profile" />
+</menu>

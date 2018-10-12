@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
+import android.view.MenuItem
 import id.ilhamsuaib.constraintlayout.R
 import id.ilhamsuaib.constraintlayout.ui.fragment.AcademyFragment
 import id.ilhamsuaib.constraintlayout.ui.fragment.HelpFragment
@@ -15,10 +16,8 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-
         setupView()
     }
-
 
     private fun setupView() {
         setupFragment(AcademyFragment(), getString(R.string.academy))

@@ -5,9 +5,13 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import id.ilhamsuaib.constraintlayout.R
+import id.ilhamsuaib.constraintlayout.data.PreferenceHelper
+import id.ilhamsuaib.constraintlayout.data.PreferenceKey
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
+
+    private lateinit var pref: PreferenceHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,6 +19,17 @@ class LoginActivity : AppCompatActivity() {
 
         btnLogin.setOnClickListener {
             login()
+        }
+
+        pref = PreferenceHelper(this)
+
+        checkLoginStatus()
+    }
+
+    private fun checkLoginStatus() {
+        val hasLogin = pref.getBoolean(PreferenceKey.HAS_LOGIN)
+        if (hasLogin) {
+            goHomePage()
         }
     }
 
@@ -30,13 +45,23 @@ class LoginActivity : AppCompatActivity() {
         val password = edtPassword.text.toString()
 
         if (username.isNotBlank() && password.isNotBlank()) {
-            /*perintah pindah halaman*/
-            val goHome = Intent(this, HomeActivity::class.java)
-            startActivity(goHome)
-            finish()
+            saveLoginData(username)
+            goHomePage()
         } else {
             /*perintah tampilkan pesan*/
             Toast.makeText(this, "Username dan password harus diisi!", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun saveLoginData(username: String) {
+        pref.putString(PreferenceKey.USERNAME, username)
+        pref.putBoolean(PreferenceKey.HAS_LOGIN, true)
+    }
+
+    private fun goHomePage() {
+        /*perintah pindah halaman*/
+        val goHome = Intent(this, HomeActivity::class.java)
+        startActivity(goHome)
+        finish()
     }
 }

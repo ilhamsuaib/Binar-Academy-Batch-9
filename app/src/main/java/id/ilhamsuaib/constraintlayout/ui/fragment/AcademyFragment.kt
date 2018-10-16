@@ -8,11 +8,18 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import id.ilhamsuaib.constraintlayout.R
 import id.ilhamsuaib.constraintlayout.model.Student
 import id.ilhamsuaib.constraintlayout.ui.adapter.StudentAdapter
 import kotlinx.android.synthetic.main.fragment_academy.view.*
 import id.ilhamsuaib.constraintlayout.ui.activity.StudentDetailActivity
+import id.ilhamsuaib.constraintlayout.BinarApp
+import id.ilhamsuaib.constraintlayout.execute
+import id.ilhamsuaib.constraintlayout.model.BaseResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class AcademyFragment : Fragment() {
 
@@ -20,6 +27,7 @@ class AcademyFragment : Fragment() {
         const val STUDENT = "student"
     }
 
+    private val api = BinarApp.apiServices
     private val studentList = mutableListOf<Student>()
     private lateinit var studentAdapter: StudentAdapter
 
@@ -58,50 +66,26 @@ class AcademyFragment : Fragment() {
     }
 
     private fun getDataStudent() {
-        studentList.add(Student(
-                id = "1",
-                name = "Ilham Suaib",
-                email = "ilhamsuaib10@gmail.com",
-                imgAvatar = R.drawable.isyana
-        ))
+        /**
+         * student :
+         * 1. Gigih
+         * 2. Kahar
+         * 3. Sambudi
+         * */
+        api.getAllStudents()
+                .execute({
+                    showMessage("Tidak ada koneksi internet")
+                }, { response ->
+                    /* `dataStudents` : untuk menyimpan data students dari response*/
+                    val dataStudents = response?.data
+                    dataStudents?.let {
+                        studentList.addAll(it)
+                        studentAdapter.notifyDataSetChanged()
+                    }
+                })
+    }
 
-        studentList.add(Student(
-                id = "2",
-                name = "Ahmad",
-                email = "ahmad@gmail.com",
-                imgAvatar = R.drawable.isyana
-        ))
-
-        studentList.add(Student(
-                id = "3",
-                name = "Bayu Prasetyo",
-                email = "bayu@gmail.com",
-                imgAvatar = R.drawable.isyana
-        ))
-
-        studentList.add(Student(
-                id = "4",
-                name = "Putri",
-                email = "putri@gmail.com",
-                imgAvatar = R.drawable.isyana
-        ))
-
-        studentList.add(Student(
-                id = "5",
-                name = "Putra",
-                email = "putra@gmail.com",
-                imgAvatar = R.drawable.isyana
-        ))
-
-        (0..10).forEach {
-            studentList.add(Student(
-                    id = "id$it",
-                    name = "Siswa ${it.plus(1)}",
-                    email = "siswa${it.plus(1)}@gmail.com",
-                    imgAvatar = R.drawable.isyana
-            ))
-        }
-
-        studentAdapter.notifyDataSetChanged()
+    private fun showMessage(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 }

@@ -9,17 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import id.ilhamsuaib.constraintlayout.BinarApp
 import id.ilhamsuaib.constraintlayout.R
+import id.ilhamsuaib.constraintlayout.execute
 import id.ilhamsuaib.constraintlayout.model.Student
+import id.ilhamsuaib.constraintlayout.ui.activity.StudentDetailActivity
 import id.ilhamsuaib.constraintlayout.ui.adapter.StudentAdapter
 import kotlinx.android.synthetic.main.fragment_academy.view.*
-import id.ilhamsuaib.constraintlayout.ui.activity.StudentDetailActivity
-import id.ilhamsuaib.constraintlayout.BinarApp
-import id.ilhamsuaib.constraintlayout.execute
-import id.ilhamsuaib.constraintlayout.model.BaseResponse
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class AcademyFragment : Fragment() {
 

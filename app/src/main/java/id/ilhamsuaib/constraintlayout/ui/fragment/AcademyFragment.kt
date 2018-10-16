@@ -71,6 +71,10 @@ class AcademyFragment : Fragment() {
          * 1. Gigih
          * 2. Kahar
          * 3. Sambudi
+         *
+         * Tugas :
+         * Menampilkan progress status saat load data students pada AcademyFragment
+         * dan menghilangkan loading progress saat data telah selesai di load
          * */
         api.getAllStudents()
                 .execute({

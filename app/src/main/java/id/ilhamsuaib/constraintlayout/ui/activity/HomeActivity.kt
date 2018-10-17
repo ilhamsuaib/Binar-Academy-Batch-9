@@ -1,9 +1,11 @@
 package id.ilhamsuaib.constraintlayout.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
 import android.view.MenuItem
 import id.ilhamsuaib.constraintlayout.R
 import id.ilhamsuaib.constraintlayout.ui.fragment.AcademyFragment
@@ -47,5 +49,16 @@ class HomeActivity : AppCompatActivity() {
         transaction.replace(R.id.frameContainer, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_add_student, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == R.id.addNewStudent)
+            startActivity(Intent(this, NewStudentActivity::class.java))
+        return super.onOptionsItemSelected(item)
     }
 }

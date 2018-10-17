@@ -27,7 +27,8 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".ui.activity.HomeActivity" />
-        <activity android:name=".ui.activity.StudentDetailActivity"></activity>
+        <activity android:name=".ui.activity.StudentDetailActivity"/>
+        <activity android:name=".ui.activity.NewStudentActivity"/>
     </application>
 
 </manifest>

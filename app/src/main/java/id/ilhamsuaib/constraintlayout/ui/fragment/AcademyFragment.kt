@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import id.ilhamsuaib.constraintlayout.BinarApp
 import id.ilhamsuaib.constraintlayout.R
-import id.ilhamsuaib.constraintlayout.execute
+import id.ilhamsuaib.constraintlayout.request
 import id.ilhamsuaib.constraintlayout.model.Student
 import id.ilhamsuaib.constraintlayout.ui.activity.StudentDetailActivity
 import id.ilhamsuaib.constraintlayout.ui.adapter.StudentAdapter
@@ -57,7 +57,10 @@ class AcademyFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = studentAdapter
         }
+    }
 
+    override fun onResume() {
+        super.onResume()
         getDataStudent()
     }
 
@@ -72,17 +75,25 @@ class AcademyFragment : Fragment() {
          * Menampilkan progress status saat load data students pada AcademyFragment
          * dan menghilangkan loading progress saat data telah selesai di load
          * */
-        api.getAllStudents()
-                .execute({
-                    showMessage("Tidak ada koneksi internet")
-                }, { response ->
-                    /* `dataStudents` : untuk menyimpan data students dari response*/
-                    val dataStudents = response?.data
-                    dataStudents?.let {
-                        studentList.addAll(it)
-                        studentAdapter.notifyDataSetChanged()
-                    }
-                })
+
+        showProgress(true)
+        api.getAllStudents().request({
+            showMessage("Tidak ada koneksi internet")
+            showProgress(false)
+        }, { response ->
+            /* `dataStudents` : untuk menyimpan data students dari response*/
+            val dataStudents = response?.data
+            dataStudents?.let {
+                studentList.clear()
+                studentList.addAll(it)
+                studentAdapter.notifyDataSetChanged()
+            }
+            showProgress(false)
+        })
+    }
+
+    private fun showProgress(show: Boolean) {
+        view?.progress?.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     private fun showMessage(message: String) {
